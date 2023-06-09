@@ -6,4 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Quizer.Core\Quizer.Core.csproj" />
+  </ItemGroup>
+
 </Project>
