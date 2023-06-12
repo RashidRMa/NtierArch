@@ -8,7 +8,7 @@ namespace Quizer.Core.Repositories
         IQueryable<T> GetAll(Expression<Func<T,bool>> expression = null); 
         T GetFirst(Expression<Func<T,bool>> expression = null);
         T Add (T entity);
-        T Update (T entity, EntityEntry<T> rules = null);
+        T Update (T entity, Action<EntityEntry<T>> rules = null);
         void Delete (T entity);
         int Save();
 

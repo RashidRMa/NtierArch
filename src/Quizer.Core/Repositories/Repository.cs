@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Quizer.Core.Extensions;
 using System.Linq.Expressions;
 
 namespace Quizer.Core.Repositories
@@ -33,10 +34,10 @@ namespace Quizer.Core.Repositories
         public IQueryable<T> GetAll(Expression<Func<T, bool>> expression = null)
         {
             var query = this.table.AsQueryable();
-            if (expression is not null) 
+            if (expression is not null)
                 query = query.Where(expression);
             return query;
-            
+
         }
 
         public T GetFirst(Expression<Func<T, bool>> expression = null)
@@ -52,9 +53,25 @@ namespace Quizer.Core.Repositories
             return this.db.SaveChanges();
         }
 
-        public T Update(T entity, EntityEntry<T> rules = null)
+        public T Update(T entity, Action<EntityEntry<T>> rules = null)
         {
-            throw new NotImplementedException();
+            var entry = db.Entry(entity);
+
+            if (rules == null) goto summary;
+
+            foreach (var propertyInfo in typeof(T).GetProperties().Where(m => m.IsEditable()))
+            {
+                entry.Property(propertyInfo.Name).IsModified = false;
+
+            }
+
+            rules(entry);
+
+        summary:
+            entry.State = EntityState.Modified;
+
+            return entity;
+
         }
     }
 }
