@@ -11,7 +11,7 @@ namespace Quizer.Core.Services
 
         public void Save(QuestionSaveDto request);
 
-        public QuestionGetByIdResponseDto GetById(int id);
+        public QuestionGetByIdResponseDto GetById(Guid id);
 
         public QuestionSaveAnswerResonseDto SaveAnswer(QuestionSaveAnswerDto request);
 
