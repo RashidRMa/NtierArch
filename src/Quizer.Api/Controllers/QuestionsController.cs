@@ -41,7 +41,7 @@ namespace Quizer.Api.Controllers
         }
 
         [HttpPost("{id}")]
-        public IActionResult GetById(int id)
+        public IActionResult GetById(Guid id)
         {
             var response = questionService.GetById(id);
             return Ok(response);

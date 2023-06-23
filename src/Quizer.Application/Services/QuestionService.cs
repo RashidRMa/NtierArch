@@ -69,24 +69,26 @@ namespace Quizer.Application.Services
                 .SetValue(x => x.QuestionSetId, request.QuestionSetId);
             });
 
-            var correctAnswer = answerRepository.GetFirst(x=> x.Id == request.CorrectAnswerId);
+            var correctAnswer = answerRepository.GetFirst(x=> x.Id == request.CorrectAnswerId, false);
 
-            answerRepository.Update(correctAnswer, entry => entry.SetValue(x => x.IsCorrect, true));
-
-            var otherAnswers = answerRepository.GetAll(x=> x.QuestionId == request.Id && x.Id != request.CorrectAnswerId).ToArray();
-
-            foreach (var item in otherAnswers)
+            if(correctAnswer != null)
             {
-                answerRepository.Update(item, entry => entry.SetValue(x => x.IsCorrect, false));
-            }
+                answerRepository.Update(correctAnswer, entry => entry.SetValue(x => x.IsCorrect, true));
 
+                var otherAnswers = answerRepository.GetAll(x => x.QuestionId == request.Id && x.Id != request.CorrectAnswerId).ToArray();
+
+                foreach (var item in otherAnswers)
+                {
+                    answerRepository.Update(item, entry => entry.SetValue(x => x.IsCorrect, false));
+                }
+            }
         }
 
 
         public QuestionSaveAnswerResonseDto SaveAnswer(QuestionSaveAnswerDto request)
         {
             //todo: eger exception qaytarsa elave serte gerek olacaq.
-            var answer = answerRepository.GetFirst(x => x.Id == request.Id);
+            var answer = answerRepository.GetFirst(x => x.Id == request.Id, false);
 
             if (answer is null)
             {

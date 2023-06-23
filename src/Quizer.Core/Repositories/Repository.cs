@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Quizer.Core.Exception;
 using Quizer.Core.Extensions;
 using System.Linq.Expressions;
 
@@ -40,11 +41,16 @@ namespace Quizer.Core.Repositories
 
         }
 
-        public T GetFirst(Expression<Func<T, bool>> expression = null)
+        public T GetFirst(Expression<Func<T, bool>> expression = null, bool throwException = true)
         {
             var query = this.table.AsQueryable();
             if (expression is not null)
                 query = query.Where(expression);
+
+            var entity = query.FirstOrDefault();
+            if (entity == null && throwException)
+                throw new NotFoundException("Qeyd tapılmadı");
+
             return query.FirstOrDefault();
         }
 
