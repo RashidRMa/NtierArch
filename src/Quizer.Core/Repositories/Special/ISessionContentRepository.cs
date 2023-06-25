@@ -2,7 +2,7 @@
 
 namespace Quizer.Core.Repositories.Special
 {
-    public interface ISessionContentRepository : IRepository<SesionContent>
+    public interface ISessionContentRepository : IRepository<SessionContent>
     {
 
     }
