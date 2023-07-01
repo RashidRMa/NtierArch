@@ -20,7 +20,9 @@ namespace Quizer.DataAccess.Persistance
         {
             base.OnConfiguring(optionsBuilder);
 
-            optionsBuilder.UseSqlServer("data source=WIN-IFLFGEB9GEO;initial catalog=Quizer;TrustServerCertificate=True");
+            //optionsBuilder.UseSqlServer("data source=WIN-IFLFGEB9GEO;initial catalog=Quizer;TrustServerCertificate=True");
+            optionsBuilder.UseSqlServer("Server=DESKTOP-984VK0M\\SQLEXPRESS;Database=Quizer;Trusted_Connection=True;TrustServerCertificate=True");
+            
         }
     }
 }

@@ -7,7 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Quizer.Core\Quizer.Core.csproj" />
+    <ProjectReference Include="..\Quizer.DataAccess\Quizer.DataAccess.csproj" />
     <ProjectReference Include="..\Quizer.Models\Quizer.Models.csproj" />
   </ItemGroup>
 
