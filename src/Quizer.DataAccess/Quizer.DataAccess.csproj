@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Quizer.Core\Quizer.Core.csproj" />
     <ProjectReference Include="..\Quizer.Models\Quizer.Models.csproj" />
   </ItemGroup>
 
